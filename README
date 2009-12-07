@@ -1,26 +1,39 @@
 Simplestone
-=========
+============
 
 Is a simplified Sandstone project
 
-forked from http://github.com/vigetlabs/sandstone and simplefy it, removing any configurations.
+forked from http://github.com/vigetlabs/sandstone
+the simplify it by removing any configurations during installation, just install and run.
 
 
 Dependencies
 ============
-You must be running:
+
+Requires Rails 2.3 or higher
+
+Required gem installation
   
   - acts_as_versioned
-  - acts_as_tree to use Sandstone.
+    note: packaged acts_as_versioned has bugs on Rails 2.3 so we will be using the trunk version
+    to install the trunk version:
+
+        ./plugin install git://github.com/technoweenie/acts_as_versioned.git
+
+  - acts_as_tree
+
+    gem install acts_as_tree
+
 
 
 Installation
-=======
+=============
 
 ./script/plugin install git://github.com/melvinsembrano/simplestone.git
 
-then run:
+then execute:
 
 rake db:migrate
 
 
+ENJOY..
