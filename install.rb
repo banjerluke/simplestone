@@ -10,8 +10,8 @@ if (File.exists?(RAILS_ROOT) && File.exists?(File.join(RAILS_ROOT, 'app')))
   require 'rails_generator'
   require 'rails_generator/scripts/generate'
 
-  Rails::Generator::Scripts::Generate.new.run(['sandstone'])
 end
 
-puts IO.read(File.join(File.dirname(__FILE__), 'README'))
 =end
+Rails::Generator::Scripts::Generate.new.run(['sandstone'])
+puts IO.read(File.join(File.dirname(__FILE__), 'README'))

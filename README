@@ -1,63 +1,26 @@
-Sandstone
+Simplestone
 =========
 
-Introduction goes here.
+Is a simplified Sandstone project
+
+forked from http://github.com/vigetlabs/sandstone and simplefy it, removing any configurations.
 
 
 Dependencies
 ============
-You must be running acts_as_versioned and acts_as_tree to use Sandstone.
-
-The generated tests also require the shoulda plugin, which you can install from git://github.com/thoughtbot/shoulda.git.
-
-You do not need to use the RESTful Authentication plugin to use Sandstone, but it will help. At a mininum, you must define the methods +logged_in?+, +current_user+, and +access_denied+ in +ApplicationController+. 
-
-+current_user+ must return an object that can match up with Sandstone's +editor+ object. +access_denied+ should handle redirection and messaging when a non-editor tried to visit an administrative page.
-
-
-Models
-======
-Sandstone hooks into your application through a user model. If your users are actually represented by a model named User, you're in luck - all you have to do is add the following line to user.rb:
-
-  has_one :editor
+You must be running:
   
-It's a little trickier if you've named the model something else (like Member). In that case, add this to your existing model:
-
-  has_one :editor, :foreign_key => :user_id
-  
-And update editor.rb with the name of your model:
-
-  belongs_to :user, :class_name => "PUT YOUR CLASS NAME HERE"
-
-Whatever user model you use, it should respond to a request for +name+ - that's what the Sandstone admin interface displays for its editors. Note that this means you'll have to add a name method or column to your User model if you're running RESTful Authentication.
-
-Controllers
-===========
-Add the following line to your ApplicationController:
-
-  include SandstoneSystem
-  
-If you want to audit editor logins, you should add +Audit.log('login', editor)+ to the action that logs people in.
+  - acts_as_versioned
+  - acts_as_tree to use Sandstone.
 
 
-Routes
-======
-You must add the following routes (or similar ones) to your config/routes.rb file. Note that +map.sandstone '*path'+ is a catch-all route, so if you're relying on the standard Rails default route (+':controller/:action/:id'+) you may have to do some more work to get Sandstone running.
-
-  map.workspace 'editor/home', :controller => 'editors', :action => 'show'
-  map.resources :audits
-  map.resources :editors
-  map.resources :pages
-  map.resources :page_templates
-  map.resource  :preview
-  map.resource  :sitemap
-  map.sandstone '*path', :controller => 'pages', :action => 'show'
-
-
-Example
+Installation
 =======
 
-Example goes here.
+./script/plugin install git://github.com/melvinsembrano/simplestone.git
+
+then run:
+
+rake db:migrate
 
 
-Copyright (c) 2007 Ben Scofield, released under the MIT license
