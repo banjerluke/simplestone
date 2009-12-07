@@ -1,4 +1,5 @@
 class AuditsController < ApplicationController
+  unloadable
   layout 'sandstone'
   include Sandstone::Controllers::Audits
   

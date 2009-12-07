@@ -1,4 +1,5 @@
 class PreviewsController < ApplicationController
+  unloadable
   layout 'public'
   include Sandstone::Controllers::Previews
   

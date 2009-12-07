@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+  unloadable
   layout 'sandstone'
   include Sandstone::Controllers::Pages
   

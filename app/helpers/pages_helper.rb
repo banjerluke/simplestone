@@ -1,4 +1,5 @@
 module PagesHelper
+
   include SandstoneHelper
 
   def parent_pages_for(page)

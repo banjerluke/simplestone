@@ -1,4 +1,6 @@
 class EditorsController < ApplicationController
+  unloadable
+  helper :pages
   layout 'sandstone'
   include Sandstone::Controllers::Editors
   
