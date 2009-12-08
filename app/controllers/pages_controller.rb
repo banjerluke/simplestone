@@ -1,6 +1,7 @@
 class PagesController < ApplicationController
   unloadable
-  layout 'sandstone'
+  layout 'simplestone'
+  helper :pages
   include Sandstone::Controllers::Pages
   
   before_filter :require_sandstone_editor, :except => [:show, :destroy]

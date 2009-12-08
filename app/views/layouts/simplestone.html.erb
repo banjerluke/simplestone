@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <title>Simplestone<%= " :: #{@page_title.downcase}" if @page_title %></title>
+    <%= stylesheet_link_tag 'screen' %>
+    
+    <!--[if IE]><%= stylesheet_link_tag 'ie' %><![endif]-->
+    <%= stylesheet_link_tag 'liquid' %>
+    <%= stylesheet_link_tag 'simplestone' %>
+    <%= javascript_include_tag :defaults %>
+    <%= yield :header_tag %>
+  </head>
+  <body>
+    <div id="main" class="showgrid">
+      <div id="header">
+        <div class="container">
+          <div class="span-24 last">
+            <h3>Simplestone<%= "::#{@page_title}" if @page_title %></h3>
+          </div>
+        </div>
+      </div>
+      <div id="menubar">
+        <div class="container">
+          <div class="menubar" class="span-24 last">
+            <% if editor %>
+              <span class="item"><%= link_to('Workspace', workspace_path) %></span>
+              <span class="item"><%= link_to('Pages', pages_path) %></span>
+            <% end %>
+            <% if editor.manager? %>
+              <span class="item"><%= link_to 'Templates', page_templates_path %></span>
+              <span class="item"><%= link_to 'Editors', editors_path %></span>
+            <% end %>
+            <%= yield :sidebar %>
+            <% unless logged_in? %>
+              <span class="item"><%= link_to 'Login', new_session_url %>  </span>
+            <% else %>
+              <span class="item"><%= link_to 'Logout', session_url, :method => :delete %></span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div id="content">
+        <div class="container">
+          <div class="span-19 last">
+            <%= content_tag :p, flash[:notice], :class => 'notice' if flash[:notice] -%>
+            <%= yield %>
+          </div>
+          <div class="span-5 last">
+            Sidebar
+          </div>
+        </div>
+      </div>
+      <div id="footer">
+        <div class="container">
+          <div class="footer span-24">
+            Simplestone &copy;2010 | <%= link_to "melvin.sembrano", "http://github.com/melvinsembrano" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

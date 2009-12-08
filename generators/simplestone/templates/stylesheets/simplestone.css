@@ -1,0 +1,82 @@
+body { background-color: #1E1E1E; color: #333; }
+
+body, p, ol, ul, td {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size:   12px;
+}
+
+#main{
+  width: 100%;
+}
+
+#header{
+  width: 100%;
+  background-color: #1E1E1E;
+  color: #D8D8D8;
+  padding: 0.8em 0.2em 0.1em;
+}
+
+#header h1, #header h2,#header h3,#header h4{
+  color: #D8D8D8;
+}
+
+#header a, #header a:visited{
+  color: #D8D8D8;
+}
+
+#content{
+  width: 100%;
+  background-color: #fafafa;
+  min-height: 380px;
+
+}
+
+#footer{
+  width: 100%;
+  background-color: #e64117;
+  padding: 0.2em 0;
+}
+
+.footer, .footer a, .footer a:visited{
+  text-align: center;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+#menubar{
+  background-color: #e64117;
+}
+
+.menubar{
+  padding: 0.3em 0.6em 0.3em 0.2em;
+  text-align: right;
+}
+
+.menubar a, .menubar a:visited{
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.menubar .item{
+  padding: 0.2em 1em;
+  margin-bottom: 0.2em;
+  font-size: 1.2em;
+}
+
+
+#form-panel{
+  margin: 1em;
+  padding: 0.6em;
+  border: 1px solid silver;
+}
+
+#form-panel form div label{
+  display: block;
+}
+
+#list-panel{
+  margin: 1em;
+  padding: 0.6em;
+  border: 1px solid silver;
+  min-height: 380px;
+}

@@ -1,4 +1,4 @@
-require 'sandstone'
+require 'simplestone'
 require 'acts_as_versioned'
 require 'acts_as_tree'
 require 'dispatcher'

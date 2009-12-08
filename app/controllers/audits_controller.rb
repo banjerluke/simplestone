@@ -1,6 +1,6 @@
 class AuditsController < ApplicationController
   unloadable
-  layout 'sandstone'
+  layout 'simplestone'
   include Sandstone::Controllers::Audits
   
   before_filter :require_sandstone_manager

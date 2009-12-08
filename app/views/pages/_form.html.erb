@@ -1,3 +1,18 @@
+<% content_for :header_tag do  %>
+  <%= javascript_include_tag 'jquery-1.3.2.min.js' %>
+  <%= javascript_include_tag 'tiny_mce/jquery.tinymce.js' %>
+  <%= javascript_tag "jQuery.noConflict();" %>
+  <% javascript_tag do -%>
+    jQuery(document).ready(function(){
+      jQuery("textarea.tinymce").tinymce({
+        script_url : '/javascripts/tiny_mce/tiny_mce.js',
+        theme : "advanced",
+        plugins : "safari,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template"
+      });
+    });
+  <% end -%>
+<% end %>
+
 <%= error_messages_for :page %>
 
 <% form_for(page) do |f| %>
@@ -6,31 +21,24 @@
   <%= defined?(root_url) ? root_url : 'http://YOURSITE/' %><%= f.text_field :path %>
 </div>
 
-<% if editor.manager? && !page.new_record? -%>
-<div>
-  <label for="page_editor_id">Assigned To</label>
-  <%= f.select :editor_id, editors_for(page) %>
-</div>
-<% end -%>
-
 <div>
   <label for="page_parent_id">Parent Page</label>
-  <%= page.could_have_parent? ? f.select(:parent_id, parent_pages_for(page)) : 'none' %>
+  <%= page.could_have_parent? ? f.select(:parent_id, parent_pages_for(page),{}, {:class => 'span-8'}) : 'none' %>
 </div>
 
 <div>
   <label for="page_page_template_id">Template</label>
-  <%= PageTemplate.count > 0 ? f.select(:page_template_id, templates) : 'default' -%>
+  <%= PageTemplate.count > 0 ? f.select(:page_template_id, templates, {},{:class => 'span-8'}) : 'default' -%>
 </div>
 
 <div>
   <label for="page_title">Title</label>
-  <%= f.text_field :title %>
+  <%= f.text_field :title, :class => "span-17" %>
 </div>
 
 <div>
   <label for="page_content">Content</label>
-  <%= f.text_area :content %>
+  <%= f.text_area :content, :class => "span-17 tinymce" %>
 </div>
 
 <div>
