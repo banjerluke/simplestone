@@ -33,19 +33,13 @@ class SimplestoneGenerator < Rails::Generator::Base
       m.directory('app/views/layouts/generated')
 
       Dir.chdir(template_dir) do
-        #handles javascripts
-        %w(javascripts).each do |area|
+        #handles javascripts and stylesheets
+        %w(javascripts stylesheets).each do |area|
           m.directory(File.join('public', area))
           Dir.glob(File.join(area, '**', '*')).each do |file|
             m.directory(File.join('public', file)) if File.directory?(file)
             m.file(file, File.join('public', file)) if File.file?(file)
           end
-        end
-
-        # Handle CSS
-        Dir.glob(File.join('stylesheets','*')).each do |f|
-          file = File.basename(f)
-          m.file("stylesheets/#{file}", "public/stylesheets/#{file}", :collision => :skip)
         end
       end
 
