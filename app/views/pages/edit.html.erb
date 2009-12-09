@@ -1,13 +1,13 @@
+<% content_for :sidebar do %>
+  <li><%= link_to 'View', sandstone_url(:path => @page.path.split('/')) %></li>
+<% end %>
 <div id="form-panel">
   <div class="versioning">
-    <label for="version">viewing version</label>
+    <label for="version">Viewing Version</label>
+    <br />
     <%= select_tag 'version', versions_for(@page),
-      :onchange => "location.href = '#{edit_page_path}?version='+this.options[this.selectedIndex].value;" %>
+      :onchange => "location.href = '#{edit_page_path}?version='+this.options[this.selectedIndex].value;", :class => "span-8" %>
   </div>
 
   <%= render :partial => 'form', :locals => {:page => @page} %>
-
-  <% content_for :sidebar do %>
-    <span class="item span-3"><%= link_to 'View', sandstone_url(:path => @page.path.split('/')) %></span>
-  <% end %>
 </div>
