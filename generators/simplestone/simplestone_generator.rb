@@ -41,8 +41,17 @@ class SimplestoneGenerator < Rails::Generator::Base
             m.file(file, File.join('public', file)) if File.file?(file)
           end
         end
-      end
 
+        %w(config).each do |area|
+          m.directory(area)
+          Dir.glob(File.join(area, '**', '*')).each do |file|
+            m.directory(file) if File.directory?(file)
+            m.file(file, file) if File.file?(file)
+          end
+        end
+
+      end
+      
       # Handle migrations
       Dir.glob(File.join(template_dir, 'db', 'migrate', '*')).each do |file|
         m.migration_template(
