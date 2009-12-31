@@ -29,6 +29,7 @@ body, p, ol, ul, td {
   background-color: #fafafa;
   min-height: 380px;
   padding-bottom: 6px;
+  line-height: 140%;
 }
 
 #footer{
@@ -90,4 +91,41 @@ body, p, ol, ul, td {
   padding: 0.6em;
   border: 1px solid silver;
   min-height: 380px;
+}
+
+form {
+  line-height: 24px;
+}
+form div {
+  margin: 10px 0;
+}
+
+label {
+  float: left;
+  width: 120px;
+  font-weight: bold;
+}
+
+fieldset {
+  -moz-border-radius:9px;
+  -webkit-border-radius:9px;
+}
+
+input[type=text],
+textarea {
+  vertical-align:top;
+}
+
+#page-variables-contents input[type=text] {
+  width: 25%;
+}
+#page-variables-contents textarea {
+  width: 70%;
+}
+
+.edit_page_template textarea {
+  width: 98%;
+}
+
+input[type=submit] {
 }

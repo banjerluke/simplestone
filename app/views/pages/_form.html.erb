@@ -59,58 +59,60 @@
 </div>
 
 <div class="additional-fields">
-  <% content_for :sidebar do %>
-  <li>Manage Page:</li>
-    <li><%= link_to_function 'Expiration', 'new Effect.Appear("page-expiration")' %></li>
-    <li><%= link_to_function 'Metadata', 'new Effect.Appear("page-metadata")' %></li>
-    <li><%= link_to_function 'Variables', 'new Effect.Appear("page-variables")' %></li>
-  <% end %>
 
-  <fieldset id="page-expiration" style="display:none;">
-    <legend>Page Expiration</legend>
-    <div>
-      <label for="page_active_at">Active at</label>
-      <%= f.text_field :active_at %>
-    </div>
-
-    <div>
-      <label for="page_expires_at">Expires at</label>
-      <%= f.text_field :expires_at %>
+  <fieldset id="page-expiration">
+    <legend><%= link_to_function 'Page Expiration', 'new Effect.SlideDown("page-expiration-contents", { duration: 0.5 }); this.replace(this.innerHTML)' %></legend>
+    <div id="page-expiration-contents" style="display:none;">
+      <div>
+        <label for="page_active_at">Active at</label>
+        <%= f.text_field :active_at %>
+      </div>
+      
+      <div>
+        <label for="page_expires_at">Expires at</label>
+        <%= f.text_field :expires_at %>
+      </div>
     </div>
   </fieldset>
-</div>
-
-<div class="additional-fields">
-  <fieldset id="page-metadata" style="display:none;">
-    <legend>Page Metadata</legend>
-    <div>
-      <label for="page_meta_description">Description</label>
-      <%= f.text_area :meta_description, :class => 'small', :rows => 4 %>
-    </div>
-
-    <div>
-      <label for="page_meta_keywords">Keywords</label>
-      <%= f.text_area :meta_keywords, :class => 'small', :rows => 4 %>
+  
+  <fieldset id="page-metadata">
+    <legend><%= link_to_function 'Page Metadata', 'new Effect.SlideDown("page-metadata-contents", { duration: 0.5 }); this.replace(this.innerHTML)' %></legend>
+    <div id="page-metadata-contents" style="display:none;">
+      <div>
+        <label for="page_meta_description">Description</label>
+        <%= f.text_area :meta_description, :class => 'small', :rows => 4 %>
+      </div>
+      
+      <div>
+        <label for="page_meta_keywords">Keywords</label>
+        <%= f.text_area :meta_keywords, :class => 'small', :rows => 4 %>
+      </div>
     </div>
   </fieldset>
-</div>
-
-<div class="additional-fields">
-  <fieldset id="page-variables" style="display:none;">
-    <legend>Page Variables</legend>
-    <% page.page_variables.each do |var| %>
-    <div>
-      <%= text_field_tag "page[variable][#{var.id}][name]", var.name %>
-      <%= text_area_tag  "page[variable][#{var.id}][content]", var.content, :class => 'small' %>
+  
+  <fieldset id="page-variables">
+    <legend><%= link_to_function 'Page Variables', 'new Effect.SlideDown("page-variables-contents", { duration: 0.5 }); this.replace(this.innerHTML)' %></legend>
+    <div id="page-variables-contents" style="display:none;">
+      <% page.page_variables.each do |var| %>
+        <div>
+          <%= text_field_tag "page[variable][#{var.id}][name]", var.name %> = 
+          <%= text_area_tag  "page[variable][#{var.id}][content]", var.content, :class => 'small' %>
+        </div>
+      <% end %>
+      
+      <% 1.upto(5) do |block| %>
+        <div id="<%= "new-page-variables-block-#{block}" %>"<%= ' style="display:none;"' unless block == 1 %>">
+          <% block.times do %>
+            <% i ||= 0; i += 1 %>
+            <div>
+              <%= text_field_tag "page[new_variable][#{i}][name]" %> = 
+              <%= text_area_tag  "page[new_variable][#{i}][content]", '', :class => 'small span12' %>
+            </div>
+          <% end %>
+          <div><%= link_to_function('show more', "$('new-page-variables-block-#{block+1}').show(); this.hide();") unless block == 5 %></div>
+        </div>
+      <% end %>
     </div>
-    <% end %>
-
-    <% (1..3).each do |i| %>
-    <div>
-      <%= text_field_tag "page[new_variable][#{i}][name]" %>
-      <%= text_area_tag  "page[new_variable][#{i}][content]", '', :class => 'small' %>
-    </div>
-    <% end %>
   </fieldset>
 </div>
 <% end %>
