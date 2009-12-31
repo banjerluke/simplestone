@@ -64,7 +64,9 @@ Simplestone uses the methods `logged_in?`, `current_user`, and `access_denied` w
 
 ## Gotchas (and solutions) ##
 
-### undefined local variable or method 'session_url' ###
+### Custom-named login/logout url helpers ###
+
+The error: `undefined local variable or method 'session_url'`
 
 I happen to use `login_url` and `logout_url` instead of Restful Authentication's `[new_]session_url` helper. So I added "hooks" in the layout. Just edit config/initializers/simplestone.rb like so:
 
@@ -72,3 +74,15 @@ I happen to use `login_url` and `logout_url` instead of Restful Authentication's
     SIMPLESTONE[:logout_link_proc] = Proc.new { link_to 'Logout', logout_url }
 
 Restart your server, and just like magic, it works again!
+
+### Sporatic bug in create_time_zone_conversion_attribute? ###
+
+Don't know if this has anything to do with Simplestone or not, but I started getting this error in the admin pages, which I've never gotten before:
+
+    You have a nil object when you didn't expect it! You might have expected an instance of Array. The error occurred while evaluating nil.include?
+    
+    /vendor/rails/activerecord/lib/active_record/attribute_methods.rb:142:in `create_time_zone_conversion_attribute?'
+    [...]
+    /vendor/plugins/simplestone/lib/simplestone/models/editor.rb:22:in `to_s'
+
+After some Googling, I found a solution, which seems to work for me. Open up environment.rb and change `config.time_zone = 'UTC'` to `config.active_record.default_timezone = :utc`
