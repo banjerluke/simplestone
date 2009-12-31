@@ -9,7 +9,7 @@ module PagesHelper
   end
 
   def editors_for(page)
-    editors = Editor.find(:all).map {|e| [e.user.name, e.id]}
+    editors = Editor.find(:all).map {|e| [e.user.send(SIMPLESTONE[:user_identifier]), e.id]}
     [['none', '']] + editors
   end
 

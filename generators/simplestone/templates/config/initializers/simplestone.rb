@@ -1,8 +1,7 @@
-# change values below according to your settings
+SIMPLESTONE = Hash.new
 
-SIMPLESTONE = {
-  :user_class => 'User'
-}
+# What model to associate the Editor class to:
+SIMPLESTONE[:user_class] = 'User'  # String, please
 
-
-SIMPLESTONE.symbolize_keys!
+# What attribute of the above to name Editors with:
+SIMPLESTONE[:user_identifier] = :name  # Symbol, please

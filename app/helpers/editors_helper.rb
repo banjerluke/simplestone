@@ -1,6 +1,5 @@
 module EditorsHelper
-  # TODO: incorrectly assumes presence of a User model
   def potential_editors
-    User.find(:all, :select => 'id, login').map {|u| [u.login, u.id]}
+    Kernel.const_get(SIMPLESTONE[:user_class]).find(:all, :select => "id, #{SIMPLESTONE[:user_identifier].to_s}").map {|u| [u.send(SIMPLESTONE[:user_identifier]), u.id]}
   end
 end

@@ -2,7 +2,7 @@
 <% @audits.each do |audit| -%>
 <li>
   <%= audit.created_at.to_s(:short) %>
-  <%= audit.editor.user.name %>
+  <%= audit.editor.user.send(SIMPLESTONE[:user_identifier]) %>
   <%= audit.event %>
   <%= audit.record ? h(audit.record.title) : '-' %>
 </li>

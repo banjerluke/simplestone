@@ -37,7 +37,7 @@ then execute:
     rake db:migrate
 
 
-## User Model ##
+### User Model ###
 
 Sandstone hooks into your application through a user model. If your users are actually represented by a model named User, you're in luck—all you have to do is add the following line to user.rb:
 
@@ -49,11 +49,13 @@ It's a little trickier if you've named the model something else (like Member). I
   
 And update config/initializers/simplestone.rb with the name of your model:
 
-    SIMPLESTONE = {
-      :user_class => 'Member'  # or whatever
-    }
+    SIMPLESTONE[:user_class] = 'Member'  # or whatever
 
-Your user model (whatever it's called) must have a `name` attribute. Simplestone reads this attribute to display editors' names in the admin interface. 
+Simplestone needs an attribute on your user model to display editors' names in the admin interface. This is specified in config/initializers/simplestone.rb; by default, it's
+
+    SIMPLESTONE[:user_identifier] = :name   # if you use logins or usernames, you may want to change this accordingly
+
+### Authentication and authorization methods ###
 
 Simplestone uses the methods `logged_in?`, `current_user`, and `access_denied` which are supplied by the Restful Authentication plugin. You do *not* need to use Restful Authentication to use Simplestone, but in this case you'll need to define these three methods in `ApplicationController`.
 
@@ -62,14 +64,11 @@ Simplestone uses the methods `logged_in?`, `current_user`, and `access_denied` w
 
 ## Gotchas (and solutions) ##
 
-### `undefined local variable or method 'session_url' for #<ActionView::Base>` ###
+### undefined local variable or method 'session_url' ###
 
-I happen to use `login_url` and `logout_url` instead of Restful Authentication's `[new_]session_url` helper. You too? Just edit config/initializers/simplestone.rb like so:
+I happen to use `login_url` and `logout_url` instead of Restful Authentication's `[new_]session_url` helper. So I added "hooks" in the layout. Just edit config/initializers/simplestone.rb like so:
 
-    SIMPLESTONE = {
-      :user_class => 'User',
-      :login_link_proc => Proc.new { link_to 'Login', login_url },
-      :logout_link_proc => Proc.new { link_to 'Logout', logout_url }
-    }
+    SIMPLESTONE[:login_link_proc]  = Proc.new { link_to 'Login',  login_url  }
+    SIMPLESTONE[:logout_link_proc] = Proc.new { link_to 'Logout', logout_url }
 
 Restart your server, and just like magic, it works again!

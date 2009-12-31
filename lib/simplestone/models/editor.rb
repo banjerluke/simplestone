@@ -19,7 +19,7 @@ module Sandstone
 
       module InstanceMethods
         def to_s
-          "#{user.name} - #{role}"
+          "#{user.send(SIMPLESTONE[:user_identifier])} - #{role}"
         end
 
         def manager?

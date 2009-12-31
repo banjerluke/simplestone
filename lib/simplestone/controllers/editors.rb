@@ -48,7 +48,7 @@ module Sandstone
 
       def destroy
         @editor = Editor.find(params[:id])
-        Audit.log('destroy', editor, nil, "#{@editor.user.login} editorial role destroyed")
+        Audit.log('destroy', editor, nil, "#{@editor.user.send(SIMPLESTONE[:user_identifier])} editorial role destroyed")
         @editor.destroy
 
         redirect_to(editors_url)

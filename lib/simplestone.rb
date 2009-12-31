@@ -1,3 +1,16 @@
+# Make sure the required configuration data is loaded.
+defaults = {:user_class => 'User', :user_identifier => :name}
+unless defined?(SIMPLESTONE)
+  SIMPLESTONE = defaults
+  RAILS_DEFAULT_LOGGER.warn "WARNING: SIMPLESTONE constant should be defined in an initializer! Defaulting to #{SIMPLESTONE.inspect}..."
+end
+[:user_class, :user_identifier].each do |attr|
+  unless SIMPLESTONE[attr]
+    SIMPLESTONE[attr] = defaults[attr]
+    RAILS_DEFAULT_LOGGER.warn "WARNING: SIMPLESTONE[:#{attr}] was not set in an initializer! Defaulting to '#{SIMPLESTONE[attr]}'..."
+  end
+end
+
 lib_dir = File.join(File.dirname(__FILE__))
 Dir.glob([File.join(lib_dir,"simplestone/*.rb"), File.join(lib_dir,"simplestone/**/*.rb")]).each {|file| require file }
 
