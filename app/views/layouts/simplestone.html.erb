@@ -16,28 +16,28 @@
   </head>
   <body>
     <div id="main" class="showgrid">
-      <div id="header">
-        <div class="container">
-          <div class="span-24 last">
-            <h3>Simplestone<%= "::#{@page_title}" if @page_title %></h3>
-          </div>
+      <div id="header" class="block">
+        <div class="column span-12">
+          <h3>Simplestone<%= "::#{@page_title}" if @page_title %></h3>
+        </div>
+        <div class="session-link">
+          <% unless logged_in? %>
+            <span class="item"><%= instance_eval &SIMPLESTONE[:login_link_proc] || link_to('Login', new_session_url) %>  </span>
+          <% else %>
+            <span class="item"><%= instance_eval &SIMPLESTONE[:logout_link_proc] || link_to('Logout', session_url, :method => :delete) %></span>
+          <% end %>
         </div>
       </div>
       <div id="menubar">
         <div class="container">
           <div class="menubar" class="span-24 last">
             <% if editor %>
-              <span class="item"><%= link_to('Workspace', workspace_path) %></span>
-              <span class="item"><%= link_to('Pages', pages_path) %></span>
+              <span class="item"><%= link_to('Workspace', workspace_path, ({:class => 'active'} if request.path.starts_with?(workspace_path)) ) %></span>
+              <span class="item"><%= link_to('Pages', pages_path, ({:class => 'active'} if request.path.starts_with?(pages_path)) ) %></span>
             <% end %>
             <% if editor.manager? %>
-              <span class="item"><%= link_to 'Templates', page_templates_path %></span>
-              <span class="item"><%= link_to 'Editors', editors_path %></span>
-            <% end %>
-            <% unless logged_in? %>
-              <span class="item"><%= instance_eval &SIMPLESTONE[:login_link_proc] || link_to('Login', new_session_url) %>  </span>
-            <% else %>
-              <span class="item"><%= instance_eval &SIMPLESTONE[:logout_link_proc] || link_to('Logout', session_url, :method => :delete) %></span>
+              <span class="item"><%= link_to('Templates', page_templates_path, ({:class => 'active'} if request.path.starts_with?(page_templates_path)) ) %></span>
+              <span class="item"><%= link_to('Editors', editors_path, ({:class => 'active'} if request.path.starts_with?(editors_path)) ) %></span>
             <% end %>
           </div>
         </div>
